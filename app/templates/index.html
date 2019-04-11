@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky - Home{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <div class="page-header">
+        Hello,
+        {% if current_user.is_authenticated %}
+            {{ current_user.username }}
+            <br>
+            <img src="static/plik.svg" alt="obrazek">
+        {% else %}
+            Stranger
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
