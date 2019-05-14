@@ -10,13 +10,14 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
-    username =db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     otp_secret = db.Column(db.String(16))
+    enabled_2fauth = db.Column(db.Boolean)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        if self.otp_secret is None:
+        if self.enabled_2fauth and self.otp_secret is None:
             self.otp_secret = base64.b32encode(os.urandom(10)).decode('utf-8')
 
     @property

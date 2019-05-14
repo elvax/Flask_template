@@ -8,10 +8,15 @@ from ..models import User
 class LoginForm(FlaskForm):
     username = StringField('Email', validators=[DataRequired(), Length(1, 64)])
     password = PasswordField('Password', validators=[DataRequired()])
-    token = StringField('Token', validators=[DataRequired(), Length(6, 6)])
+    # token = StringField('Token', validators=[DataRequired(), Length(6, 6)])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log in')
 
+
+class OtpForm(FlaskForm):
+    token = StringField('Token', validators=[DataRequired(), Length(6, 6)])
+    remember_me = BooleanField('Keep me logged in')
+    submit = SubmitField('Log in')
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Length(1,64), Email()])
@@ -24,6 +29,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(),
                                                      EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    enable_2fa = BooleanField('Enable two factor authentication')
     submit = SubmitField('Register')
 
     def validate_email(self, field):
